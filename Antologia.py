@@ -322,13 +322,17 @@ if st.session_state.section == "🏠 Portada":
         - **Comentarios Personales**: Reflexiones que acompañan cada fragmento.
         - **Texto Creativo**: Poesía original que expresa emociones actuales.
         """)
-        st.info("Nota: Usa la barra lateral para moverte por las secciones. Esta se activa en la parte superior izquierda con el icono >> y se oculta con <<.")
+        st.info("Nota: Usa la barra lateral para moverte por las secciones. Esta se ubica en la parte superior izquierda se actica con el icono >>, y se oculta con <<")
 
         with st.expander("Leer más sobre la antología"):
             st.markdown("""
             Esta antología fue creada para acercarte a la literatura contemporánea desde una perspectiva personal y fresca.
+            """)
+            st.markdown("""
             Los autores seleccionados representan diferentes voces y estilos que enriquecen el panorama literario actual.
-            Disfruta el recorrido 
+            """)
+            st.markdown("""
+            Disfruta el recorido de esta antologia.
             """)
 
     with col2:
@@ -481,13 +485,13 @@ elif st.session_state.section == "✍️ Texto creativo":
 
         st.markdown("""
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
         .poema-box {
             background: linear-gradient(to bottom, #1e1e1e, #2b2b2b);
             border-left: 5px solid #ff6f91;
             padding: 30px;
             border-radius: 15px;
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Poiret One', sans-serif;
             font-size: 24px;
             line-height: 1.8;
             color: #f9f4e7;
@@ -521,19 +525,6 @@ elif st.session_state.section == "✍️ Texto creativo":
         </div>
         """, unsafe_allow_html=True)
 
-        poema_img = generar_imagen_poema(poema1)
-        buffer = io.BytesIO()
-        poema_img.save(buffer, format="PNG")
-
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        with st.spinner("⏳ Preparando imagen del poema para descargar..."):
-            st.download_button(
-                label="📥 Descargar poema como imagen",
-                data=buffer.getvalue(),
-                file_name="Axel-Morales-poema.png",
-                mime="image/png"
-            )
-
         st.markdown("""
         <div class="comentario">
         Este poema refleja la conexión emocional desde un simple saludo hasta el amor profundo.  
@@ -542,7 +533,18 @@ elif st.session_state.section == "✍️ Texto creativo":
         </div>
         """, unsafe_allow_html=True)
 
+        poema_img = generar_imagen_poema(poema1)
+        buffer = io.BytesIO()
+        poema_img.save(buffer, format="PNG")
 
+        st.markdown("<br>", unsafe_allow_html=True)
+        with st.spinner("⏳ Preparando imagen del poema para descargar..."):
+            st.download_button(
+                label="📥 Descargar poema como imagen",
+                data=buffer.getvalue(),
+                file_name="Axel-Morales-poema.png",
+                mime="image/png"
+            )
     # Mostrar segundo poema
     if "mostrar_poema2" not in st.session_state:
         st.session_state.mostrar_poema2 = False
