@@ -170,7 +170,85 @@ authors = {
                 )
             }
         }
+    },
+    "Ada Limón": {
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBDNHXvOKhxDw02Wm2gfLfWD12e24_LqJw8A&s",
+        "bio": (
+            "Ada Limón es una poeta estadounidense contemporánea, reconocida por su estilo lírico y accesible, "
+            "que explora con profundidad las complejidades de la experiencia humana cotidiana. "
+            "Su obra reflexiona sobre la conexión con la naturaleza, la vulnerabilidad emocional y la resiliencia. "
+            "Limón ha recibido numerosos premios y su poesía ha sido alabada por su capacidad para transformar lo mundano "
+            "en algo profundamente significativo."
+        ),
+        "works": {
+            "The Carrying": {
+                "cover_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVGI-j4qsTk-my2A0Id7N8ZZSRdDcdSSLoxQ&s",
+                "fragment": (
+                    "Even after all this time, the sun never says to the earth, 'You owe me.'\n"
+                    "Look what happens with a love like that,\n"
+                    "It lights the whole sky."
+                ),
+                "comment": (
+                    "En este fragmento, Ada Limón utiliza la naturaleza como metáfora para ilustrar el amor incondicional y la generosidad. "
+                    "El sol representa una fuerza que da sin esperar nada a cambio, iluminando el mundo entero con su entrega constante. "
+                    "La simplicidad del lenguaje oculta una profunda reflexión sobre la bondad y el sacrificio en las relaciones humanas."
+                )
+            },
+            "The Leash": {
+                "cover_image": "https://i.pinimg.com/originals/e7/63/90/e763906740a3fb0178e8aec90fa63bfa.png",
+                "fragment": (
+                    "Tell me about the trees in your childhood.\n"
+                    "Tell me about the water.\n"
+                    "Tell me about the dirt."
+                ),
+                "comment": (
+                    "En este poema, Ada Limón evoca la conexión profunda con la naturaleza y la memoria, "
+                    "pidiendo un regreso a las raíces y al entorno que nos forma. La invitación a hablar de los árboles, el agua y la tierra simboliza "
+                    "la búsqueda de identidad y el anclaje emocional en el mundo natural. Es un llamado a reconocer cómo nuestro pasado y entorno moldean "
+                    "nuestra experiencia y poesía, revelando una sensibilidad delicada y un aprecio por lo esencial en la vida."
+                )
+            }
+        }
+    },
+    "Rupi Kaur": {
+    "image": "https://www.globalindian.com/wp-content/uploads/2021/07/rupikaur-gallery.jpg",
+    "bio": (
+        "Rupi Kaur, poeta y artista visual canadiense de origen punjabi, se ha convertido en una voz influyente "
+        "en la poesía contemporánea global, especialmente entre los jóvenes. "
+        "Su estilo directo, íntimo y poderoso, aborda temas de amor, trauma, feminismo y sanación, "
+        "rompiendo esquemas tradicionales de la poesía para acercarla a un público masivo. "
+        "Kaur es conocida por sus breves pero impactantes versos, acompañados de ilustraciones propias."
+    ),
+    "works": {
+        "Milk and Honey": {
+            "cover_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXm9A8zSHor87XajiKMfT_DvNZZ0wCt0slA&s",
+            "fragment": (
+                "I want to apologize to all the women\n"
+                "I have called beautiful\n"
+                "before I've called them intelligent or brave."
+            ),
+            "comment": (
+                "Este verso desafía las prioridades sociales sobre cómo valoramos a las mujeres, "
+                "instando a reconocer y celebrar sus cualidades internas como la inteligencia y el valor, "
+                "más allá de los estándares superficiales de belleza. "
+                "La poesía de Kaur busca empoderar y sanar a través de un lenguaje accesible y emocionalmente honesto."
+            )
+        },
+     "The Sun and Her Flowers": {
+            "cover_image": "https://m.media-amazon.com/images/I/71qQgwFbo+L.jpg",
+            "fragment": (
+                "you must want to spend the rest of your life with yourself first\n"
+                "before you can be with anyone else"
+            ),
+            "comment": (
+                "En este poema, Rupi Kaur profundiza en la importancia del amor propio y la autoaceptación como pilares esenciales para cualquier relación sana. "
+                "Nos invita a reflexionar sobre la necesidad de estar en paz con uno mismo antes de poder compartir nuestra vida y amor con otros. "
+                "Es un llamado a la introspección y al cuidado personal, resaltando que la relación más duradera y significativa es la que tenemos con nosotros mismos. "
+                "Este mensaje conecta con temas universales de sanación, crecimiento personal y empoderamiento, que atraviesan toda su obra."
+            )
+        }
     }
+}
 }
 
 # Análisis simple
@@ -322,31 +400,87 @@ elif st.session_state.section == "✍️ Texto creativo":
     La vulnerabilidad y la ternura son temas universales que siguen siendo relevantes hoy.
     """)
 
-    # Inicializar si no existe
+    # Función para crear imagen de poema (debe ir aquí, no indentada más adentro)
+    def generar_imagen_poema(poema, autor="Axel Morales"):
+        ancho, alto = 1080, 1350
+        imagen = Image.new("RGB", (ancho, alto), color=(30, 30, 30))
+        draw = ImageDraw.Draw(imagen)
+
+        try:
+            fuente_poema = ImageFont.truetype("arial.ttf", 36)
+            fuente_firma = ImageFont.truetype("arial.ttf", 28)
+        except:
+            fuente_poema = ImageFont.load_default()
+            fuente_firma = ImageFont.load_default()
+
+        margen = 60
+        y_texto = margen
+
+        for linea in poema.strip().split("\n"):
+            draw.text((margen, y_texto), linea.strip(), font=fuente_poema, fill=(250, 240, 230))
+            y_texto += 50
+
+        draw.text((ancho - 350, alto - 100), f"— {autor}", font=fuente_firma, fill=(255, 170, 140))
+        return imagen
+
+    # Poemas
+    poema1 = """
+    Quien podría imaginar que  
+    esto que siento por ti  
+    Empezará con tu simple hola 👋  
+    Muchas veces suele ser un saludo.
+
+    Pero para mí fue el comienzo de una historia 📖  
+    donde el miedo se hizo presente,  
+    cautivado por el color de tus ojos, esos  
+    ojitos color café ☕, café que te cuida el
+
+    sueño, café que provoca desvelos,  
+    en tus ojos brilla el sol ☀️, y en tu sonrisa  
+    mi corazón recibe la brisa del viento 🍃.  
+
+    En cada momento,  
+    en cada instante te amo más ❤️,  
+    y cuando sonríes,  
+    mi corazón canta de alegría 🎶.
+
+    Eres una obra para mis ojos 👁️  
+    No soy poeta pero lo intento,  
+    tu voz es poesía para mi vida.
+    """
+
+    poema2 = """
+    Eres tan bella como los jardines de la Reina 🌿👑,  
+    con la paz que duerme en el lago azul 🌊💤.  
+    Tan sabia como Monomon la sabia 🧠✨,  
+    única como el Cañón envuelto en su bruma sutil 🌫️🌀.
+
+    Tan especial como todo Hollow Nest 🏰🕷️,  
+    un misterio tallado en piedra y luz 🔮🪨.  
+    Básicamente, eres perfecta,  
+    mi propia leyenda entre sombras y musgo azul 💙🌌
+    """
+
+    # Mostrar primer poema
     if "mostrar_poema" not in st.session_state:
         st.session_state.mostrar_poema = False
 
-    # Texto dinámico del botón
-    boton_texto = (
+    boton_poema1 = (
         "🙈 Ocultar poema 'Poema y Poesía ❤️🌹'"
         if st.session_state.mostrar_poema
         else "📝 Mostrar poema 'Poema y Poesía ❤️🌹'"
     )
 
-    # Al hacer clic, cambia estado y recarga
-    if st.button(boton_texto, key="poema_toggle"):
+    if st.button(boton_poema1, key="poema_toggle"):
         st.session_state.mostrar_poema = not st.session_state.mostrar_poema
-        st.rerun()  # ✅ NUEVO método (desde Streamlit 1.40+)
-
+        st.rerun()
 
     if st.session_state.mostrar_poema:
         st.markdown("### 🌸 *Poema y Poesía* 🌸")
 
-        # Estilos avanzados
         st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-
         .poema-box {
             background: linear-gradient(to bottom, #1e1e1e, #2b2b2b);
             border-left: 5px solid #ff6f91;
@@ -359,14 +493,12 @@ elif st.session_state.section == "✍️ Texto creativo":
             transition: all 0.3s ease-in-out;
             animation: fadeIn 1.2s ease-in;
         }
-
         .firma {
             margin-top: 25px;
             text-align: right;
             font-size: 20px;
             color: #ffd8a9;
         }
-
         .comentario {
             margin-top: 30px;
             font-size: 16px;
@@ -375,7 +507,6 @@ elif st.session_state.section == "✍️ Texto creativo":
             max-height: 150px;
             overflow-y: auto;
         }
-
         @keyframes fadeIn {
             from {opacity: 0;}
             to {opacity: 1;}
@@ -383,71 +514,17 @@ elif st.session_state.section == "✍️ Texto creativo":
         </style>
         """, unsafe_allow_html=True)
 
-        # Poema como string
-        poema = """
-        Quien podría imaginar que  
-        esto que siento por ti  
-        Empezará con tu simple hola 👋  
-        Muchas veces suele ser un saludo.
-
-        Pero para mí fue el comienzo de una historia 📖  
-        donde el miedo se hizo presente,  
-        cautivado por el color de tus ojos, esos  
-        ojitos color café ☕, café que te cuida el
-
-        sueño, café que provoca desvelos,  
-        en tus ojos brilla el sol ☀️, y en tu sonrisa  
-        mi corazón recibe la brisa del viento 🍃.  
-
-        En cada momento,  
-        en cada instante te amo más ❤️,  
-        y cuando sonríes,  
-        mi corazón canta de alegría 🎶.
-
-        Eres una obra para mis ojos 👁️  
-        No soy poeta pero lo intento,  
-        tu voz es poesía para mi vida.
-        """
-
-        # Mostrar HTML del poema
         st.markdown(f"""
-        <div class='poema-box'>{poema.replace('\n', '<br>')}
+        <div class='poema-box'>{poema1.replace('\n', '<br>')}
         <div class='firma'>— Axel Morales 🌹</div>
         </div>
         """, unsafe_allow_html=True)
 
-        # ✅ FUNCIÓN para generar imagen
-        def generar_imagen_poema(poema, autor="Axel Morales"):
-            ancho, alto = 1080, 1350
-            imagen = Image.new("RGB", (ancho, alto), color=(30, 30, 30))
-            draw = ImageDraw.Draw(imagen)
-
-            try:
-                fuente_poema = ImageFont.truetype("arial.ttf", 36)
-                fuente_firma = ImageFont.truetype("arial.ttf", 28)
-            except:
-                fuente_poema = ImageFont.load_default()
-                fuente_firma = ImageFont.load_default()
-
-            margen = 60
-            y_texto = margen
-
-            for linea in poema.strip().split("\n"):
-                draw.text((margen, y_texto), linea.strip(), font=fuente_poema, fill=(250, 240, 230))
-                y_texto += 50
-
-            draw.text((ancho - 350, alto - 100), f"— {autor}", font=fuente_firma, fill=(255, 170, 140))
-            return imagen
-
-        # Crear imagen del poema
-        poema_img = generar_imagen_poema(poema)
+        poema_img = generar_imagen_poema(poema1)
         buffer = io.BytesIO()
         poema_img.save(buffer, format="PNG")
 
-        # Separación visual antes del botón
         st.markdown("<br><br>", unsafe_allow_html=True)
-
-        # Mostrar spinner mientras se prepara la descarga
         with st.spinner("⏳ Preparando imagen del poema para descargar..."):
             st.download_button(
                 label="📥 Descargar poema como imagen",
@@ -456,7 +533,6 @@ elif st.session_state.section == "✍️ Texto creativo":
                 mime="image/png"
             )
 
-        # Comentario final
         st.markdown("""
         <div class="comentario">
         Este poema refleja la conexión emocional desde un simple saludo hasta el amor profundo.  
@@ -464,9 +540,84 @@ elif st.session_state.section == "✍️ Texto creativo":
         pero a la vez un amor que no puede ser contenido.
         </div>
         """, unsafe_allow_html=True)
-    else:
-        st.info("Haz clic para mostrar el poema ❤️")
-        
+
+
+    # Mostrar segundo poema
+    if "mostrar_poema2" not in st.session_state:
+        st.session_state.mostrar_poema2 = False
+
+    boton_poema2 = (
+        "🙈 Ocultar poema 'Leyenda Azul'"
+        if st.session_state.mostrar_poema2
+        else "📝 Mostrar poema 'Leyenda Azul'"
+    )
+
+    if st.button(boton_poema2, key="poema2_toggle"):
+        st.session_state.mostrar_poema2 = not st.session_state.mostrar_poema2
+        st.rerun()
+
+    if st.session_state.mostrar_poema2:
+        st.markdown("### 🌌 *Leyenda Azul* 🌌")
+
+        # Estilos especiales para este poema inspirado en Hollow Knight
+        st.markdown("""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
+
+        .poema-box {
+            background: linear-gradient(135deg, #0b1a2f 0%, #243b55 100%);
+            border-left: 5px solid #6a93d1;
+            padding: 30px;
+            border-radius: 20px;
+            font-family: 'Uncial Antiqua', serif;
+            font-size: 22px;
+            line-height: 1.7;
+            color: #cbd6f7;
+            box-shadow: 0 0 15px 3px rgba(106, 147, 209, 0.5);
+            transition: all 0.4s ease-in-out;
+        }
+
+        .firma {
+            margin-top: 25px;
+            text-align: right;
+            font-size: 18px;
+            color: #8da1ca;
+            font-style: italic;
+        }
+
+        .comentario-poema2 {
+            margin-top: 20px;
+            font-size: 16px;
+            font-style: italic;
+            color: #a0aec0;
+            max-width: 600px;
+            background: rgba(15, 25, 45, 0.6);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #49638f;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class='poema-box'>{poema2.replace('\n', '<br>')}
+        <div class='firma'>— Axel Morales 🌙</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class='comentario-poema2'>
+            Este poema está inspirado en el universo de <em>Hollow Knight</em>, un mundo lleno de misterio, belleza y leyendas ocultas,
+            donde la naturaleza y la oscuridad se entrelazan en una danza eterna. Cada verso busca capturar la esencia de sus paisajes
+            sombríos y encantadores, y la sensación de una leyenda que trasciende el tiempo y el espacio.
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Si ninguno está abierto, muestra info
+    if not st.session_state.mostrar_poema and not st.session_state.mostrar_poema2:
+        st.info("Haz clic para mostrar un poema ❤️")
+
+
 # Pie de página fijo
 st.markdown("""
 <footer>
