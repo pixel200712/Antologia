@@ -322,12 +322,13 @@ if st.session_state.section == "🏠 Portada":
         - **Comentarios Personales**: Reflexiones que acompañan cada fragmento.
         - **Texto Creativo**: Poesía original que expresa emociones actuales.
         """)
-        st.info("Nota: Usa la barra lateral para moverte por las secciones.")
+        st.info("Nota: Usa la barra lateral para moverte por las secciones. Esta se activa en la parte superior izquierda con el icono >> y se oculta con <<.")
 
         with st.expander("Leer más sobre la antología"):
             st.markdown("""
             Esta antología fue creada para acercarte a la literatura contemporánea desde una perspectiva personal y fresca.
             Los autores seleccionados representan diferentes voces y estilos que enriquecen el panorama literario actual.
+            Disfruta el recorrido 
             """)
 
     with col2:
